@@ -67,15 +67,15 @@ function apply(options, compiler) {
                   }
 
                   if (isExact) {
-                    console.log("skip this existing blob '" + file.path + "' in container '" + options.container.name + "'");
+                    console.log("= skip this existing blob '" + file.path + "' in container '" + options.container.name + "'");
                     resolve();
                   }  else if (isExisting) {
                     // options.overwrite, true as default
                     if (options.overwrite === false) {
-                      uploadFileToBlockBlob(blobService, options, name, file, opts, md5sum, uploadHandler);
-                    } else {
-                      console.warn("same name without same content for '" + file.path + "' in container '" + options.container.name + "'");
+                      console.warn("~ same name without same content for '" + file.path + "' in container '" + options.container.name + "'");
                       resolve();
+                    } else {
+                      uploadFileToBlockBlob(blobService, options, name, file, opts, md5sum, uploadHandler);
                     }
                   } else {
                     uploadFileToBlockBlob(blobService, options, name, file, opts, md5sum, uploadHandler);
@@ -112,7 +112,7 @@ function uploadFileToBlockBlob(blobService, options, name, file, opts, md5sum, c
 
     assetChecksums[file.path] = md5sum;
     if (!process.env.SILENCE_UPLOADS) {
-      console.log("successfully uploaded '" + file.path + "' to '" + url + "'");
+      console.log("+ successfully uploaded '" + file.path + "' to '" + url + "'");
     }
 
     callback(null);
